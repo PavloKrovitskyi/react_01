@@ -1,0 +1,201 @@
+/* @import "reset.css"; */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  background-color: #000;
+  color: #cecece;
+  margin: 0;
+}
+
+.wrapper {
+  padding-bottom: 100px;
+}
+
+.section {
+  padding-block: 80px;
+}
+
+.section:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+.section:nth-child(even) {
+  background-color: #111;
+}
+
+.container {
+  max-width: 1270px;
+  margin: 0 auto;
+  padding-inline: 16px;
+}
+
+.task {
+  margin-bottom: 50px;
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 6px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  span {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  input {
+    /* min-height: 48px; */
+    font-size: 24px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+}
+
+.btn {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  background-color: #fff;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #545454;
+  color: #fff;
+}
+
+.resources strong {
+  font-size: 20px;
+}
+
+.weather-recommendations strong {
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.forest-image {
+  aspect-ratio: 16/9;
+  width: 100%;
+  max-width: 50%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/*==============================================================================================================*/
+.range-fields {
+  display: flex;
+  gap: 30px;
+}
+
+.range-fields:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.range-fields .label {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.range-fields-item-value {
+  font-size: 16px;
+}
+
+.range-value {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.range-value strong {
+  color: rgb(121, 214, 28);
+}
+
+.range-fields-item-value strong {
+  font-size: 16px;
+  color: rgb(121, 214, 28);
+}
+
+/*==============================================================================================================*/
+.billing-account {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.billing-account__tottal {
+  margin-bottom: 20px;
+
+  font-size: 24px;
+
+  background-color: #545454;
+  padding: 10px 20px;
+  border-radius: 6px;
+
+  .billing-account--add & {
+    background-color: rgba(121, 214, 28, 0.1);
+  }
+
+  .billing-account--withdraw & {
+    background-color: rgba(214, 28, 28, 0.1);
+  }
+}
+.billing-account__tottal strong {
+  .billing-account--red & {
+    color: rgb(248, 83, 83);
+  }
+
+  .billing-account--green & {
+    color: rgb(121, 214, 28);
+  }
+}
+
+.billing-account__row {
+  font-size: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+}
+
+.billing-account__row .label {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.billing-account__row .btn {
+}
+
+.billing-account__row .btn {
+  min-width: 148px;
+  text-align: center;
+}
+
+.billing-account__row .btn--add:hover {
+  background-color: rgb(88, 164, 12);
+}
+
+.billing-account__row .btn--withdraw:hover {
+  background-color: rgb(214, 28, 28);
+}
+
+.billing-account__info-row strong {
+  font-size: 16px;
+  color: rgb(121, 214, 28);
+}

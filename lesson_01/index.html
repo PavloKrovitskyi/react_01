@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+
+  <body>
+    <div id="root" class="wrapper"></div>
+
+    <script type="text/babel">
+      function PassengersResources(props) {
+        const numPasangersPerBus = 20;
+        const numBottlesPerPasanger = 2;
+        const numSandwichPerPasanger = 3;
+
+        const [passengers, setPassengers] = React.useState(0);
+        const [busses, setBusses] = React.useState(0);
+        const [bottles, setBottles] = React.useState(0);
+        const [sandwiches, setSandwiches] = React.useState(0);
+
+        const calculateResources = () => {
+          const newPassengers = parseInt(event.target.value) || 0;
+
+          if (newPassengers < 1 || isNaN(newPassengers)) {
+            setPassengers(0);
+            setBusses(0);
+            setBottles(0);
+            setSandwiches(0);
+            return;
+          }
+
+          setPassengers(newPassengers);
+          setBusses(Math.ceil(newPassengers / numPasangersPerBus));
+          setBottles(newPassengers * numBottlesPerPasanger);
+          setSandwiches(newPassengers * numSandwichPerPasanger);
+        };
+
+        return (
+          <div className="section">
+            <div className="container">
+              <div className="task">
+                <h2>Задача 1. Вводиться кількість пасажирів. Вивести:</h2>
+
+                <ul>
+                  <li>
+                    <strong>скільки потрібно автобусів</strong> (кожен автобус на 20 місць)
+                  </li>
+                  <li>
+                    <strong>скільки пляшок води</strong> (кожному пасажиру 2 пляшки)
+                  </li>
+                  <li>
+                    <strong>скільки бутербродів</strong> (кожному пасажиру 3 бутерброди)
+                  </li>
+                </ul>
+              </div>
+
+              <label className="label">
+                <span>Введіть кількість пасажирів</span>
+                <input type="number" min="0" onChange={calculateResources} />
+              </label>
+
+              <ul className="resources">
+                <li>
+                  Кількість пасажирів: <strong>{passengers}</strong>
+                </li>
+                <li>
+                  Кількість автобусів: <strong>{busses}</strong>
+                </li>
+                <li>
+                  Кількість пляшок води: <strong>{bottles}</strong>
+                </li>
+                <li>
+                  Кількість бутербродів: <strong>{sandwiches}</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+        );
+      }
+
+      function WetherRecomendation(props) {
+        const [month, setMonth] = React.useState(1);
+        const [clothing, setClothing] = React.useState("");
+        const [forestImage, setForestImage] = React.useState("");
+        const [forestImgAlt, setForestImgAlt] = React.useState("");
+
+        const getRecommendations = (monthNumber) => {
+          let clothingRecommendation;
+          let forestImg;
+          let forestImgAlt;
+
+          switch (monthNumber) {
+            case 12:
+            case 1:
+            case 2:
+              clothingRecommendation = "пальто";
+              forestImg = "img/winter-forest.jpg";
+              forestImgAlt = "Ліс в зимовий період";
+              break;
+            case 3:
+            case 4:
+            case 5:
+              clothingRecommendation = "куртка";
+              forestImg = "img/spring-forest.jpg";
+              forestImgAlt = "Ліс в весняний період";
+              break;
+            case 6:
+            case 7:
+            case 8:
+              clothingRecommendation = "шорти";
+              forestImg = "img/summer-forest.webp";
+              forestImgAlt = "Ліс в літній період";
+              break;
+            case 9:
+            case 10:
+            case 11:
+              clothingRecommendation = "светр";
+              forestImg = "img/autumn-forest.jpg";
+              forestImgAlt = "Ліс в осінній період";
+              break;
+          }
+
+          setClothing(clothingRecommendation);
+          setForestImage(forestImg);
+          setForestImgAlt(forestImgAlt);
+        };
+
+        const handleMonthChange = (e) => {
+          const monthValue = parseInt(e.target.value);
+          setMonth(monthValue);
+          getRecommendations(monthValue);
+        };
+
+        React.useEffect(() => {
+          getRecommendations(month);
+        }, []);
+
+        return (
+          <div className="section">
+            <div className="container">
+              <div className="task">
+                <h2>Задача 2. Рекомендації одягу за місяцем</h2>
+              </div>
+
+              <label className="label">
+                <span>Введіть номер місяця (1-12)</span>
+                <input type="number" min="1" max="12" value={month} onChange={handleMonthChange} />
+              </label>
+
+              <div className="weather-recommendations">
+                <p>
+                  Рекомендований одяг: <strong>{clothing}</strong>
+                </p>
+                {forestImage && (
+                  <div className="forest-image">
+                    <img src={forestImage} alt={forestImgAlt} />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function GenerateRandomRangeValue(props) {
+        const [minValue, setMinValue] = React.useState(0);
+        const [maxValue, setMaxValue] = React.useState(100);
+        const [randomValue, setRandomValue] = React.useState(0);
+
+        const handleMinValueChange = (e) => {
+          setMinValue(Number(e.target.value));
+        };
+
+        const handleMaxValueChange = (e) => {
+          setMaxValue(Number(e.target.value));
+        };
+
+        const generateRandomValue = () => {
+          const min = Number(minValue);
+          const max = Number(maxValue);
+
+          if (min > max) {
+            alert("Мінімальне значення не може бути більшим за максимальне");
+            return;
+          }
+
+          const randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
+          setRandomValue(randomValue);
+        };
+
+        return (
+          <div className="section">
+            <div className="container">
+              <div className="task">
+                <h2>Задача 3. Задано початок та кінець діапазону. При натисканні на кнопку випадковим чином генерувати значення з вказаного діапазону та відображати його.</h2>
+              </div>
+              <div className="range">
+                <div className="range-fields">
+                  <div className="range-fields-item">
+                    <label className="label">
+                      <span>введіть мінімальне значення</span>
+                      <input type="number" onChange={handleMinValueChange} />
+                    </label>
+
+                    <div className="range-fields-item-value">
+                      мінімальне значення становить: <strong>{minValue}</strong>
+                    </div>
+                  </div>
+
+                  <div className="range-fields-item">
+                    <label className="label">
+                      <span>введіть максимальне значення</span>
+                      <input type="number" onChange={handleMaxValueChange} />
+                    </label>
+
+                    <div className="range-fields-item-value">
+                      максимальне значення становить: <strong>{maxValue}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="range-value">
+                  Згенероване значення становить: <strong>{randomValue}</strong>
+                </div>
+
+                <button className="btn" onClick={generateRandomValue}>
+                  генерувати значення
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function HandleBillingAccount(props) {
+        const [balance, setBalance] = React.useState(0);
+        const [euro, setEuro] = React.useState(0);
+        const [dollars, setDollars] = React.useState(0);
+        const [transactionType, setTransactionType] = React.useState("");
+        const [addToBalance, setAddToBalance] = React.useState("");
+        const [withdrawFromBalance, setWithdrawFromBalance] = React.useState("");
+        const [tax, setTax] = React.useState(0);
+
+        const CURRENCY_RATES = {
+          usd: 39.5,
+          eur: 42.3
+        };
+
+        const handleAddToBalance = (e) => {
+          setAddToBalance(Number(e.target.value));
+        };
+
+        const handleWithdrawFromBalance = (e) => {
+          setWithdrawFromBalance(Number(e.target.value));
+        };
+
+        const handleTransaction = (type) => {
+          if (type === "add" && addToBalance > 0) {
+            const fee = addToBalance * 0.03;
+            const sumNetto = addToBalance - fee;
+            setBalance((prevBalance) => prevBalance + sumNetto);
+            setTax(fee.toFixed(2));
+            setAddToBalance("");
+            setTransactionType("add");
+          } else if (type === "withdraw" && withdrawFromBalance > 0) {
+            const fee = withdrawFromBalance * 0.03;
+            const total = withdrawFromBalance + fee;
+
+            if (total > balance) {
+              alert("Недостатньо коштів на рахунку");
+              return;
+            }
+
+            setBalance((prev) => prev - total);
+            setTax(fee.toFixed(2));
+            setWithdrawFromBalance("");
+            setTransactionType("withdraw");
+          }
+        };
+
+        const handleIndicateBalance = (balance) => {
+          if (balance < 100) return "billing-account--red";
+          return "billing-account--green";
+        };
+
+        const getTransactionClass = () => {
+          if (transactionType === "add") return "billing-account--add";
+          if (transactionType === "withdraw") return "billing-account--withdraw";
+          return "";
+        };
+
+        React.useEffect(() => {
+          setDollars((balance / CURRENCY_RATES.usd).toFixed(2));
+          setEuro((balance / CURRENCY_RATES.eur).toFixed(2));
+        }, [balance]);
+
+        return (
+          <div className="section">
+            <div className="container">
+              <div className="task">
+                <h2>Задача 4. “Рахунок у банку”</h2>
+
+                <h3>Вимоги:</h3>
+                <ol>
+                  <li>Спочатку сума дорівнює 0грн. Змінити суму у гривнях можна або зарахуванням на рахунок, або зняттям.</li>
+                  <li>Сума автоматично переводиться у долари та євро (фіксований курс задається у data).</li>
+                  <li>можливість зарахувати суму (контролювати, щоб не була від’ємною)</li>
+                  <li>можливість зняти (щоб не можна зняти більше ніж є на рахунку)</li>
+                  <li>при виконанні зняття і зарахування коштів вираховувати 3% від суми (відображати кількість відсотків автоматично)</li>
+                </ol>
+
+                <h3>При зміні суми :</h3>
+                <ul>
+                  <li>якщо було зняття, то суму відображати червоним</li>
+                  <li>якщо було зарахування, то суму відображати зеленим</li>
+                  <li>Якщо сума валюти менша за 100 то відображати червоним кольором, інакше - зеленим</li>
+                </ul>
+              </div>
+
+              <div className={`billing-account ${getTransactionClass()} ${handleIndicateBalance(balance)}`}>
+                <div className="billing-account__tottal">
+                  Сума на рахунку: <strong>{balance.toFixed(2)}</strong> грн.
+                </div>
+
+                <div className="billing-account__row">
+                  <label className="label">
+                    <span>Зарахувати на рахунок</span>
+                    <input type="number" value={addToBalance} onChange={handleAddToBalance} />
+                  </label>
+                  <button className="btn btn--add" type="button" onClick={() => handleTransaction("add")}>
+                    Зарахувати
+                  </button>
+                </div>
+
+                <div className="billing-account__row">
+                  <label className="label">
+                    <span>Зняти з рахунку</span>
+                    <input type="number" value={withdrawFromBalance} onChange={handleWithdrawFromBalance} />
+                  </label>
+                  <button className="btn btn--withdraw" type="button" onClick={() => handleTransaction("withdraw")}>
+                    Зняти
+                  </button>
+                </div>
+
+                <div className="billing-account__info-row">
+                  Відсотки за обслуговування рахунку (3%) <strong>{tax}</strong>
+                </div>
+                <div className="billing-account__info-row">
+                  Сума у Євро <strong>{euro}</strong>
+                </div>
+                <div className="billing-account__info-row">
+                  Сума у Доларах <strong>{dollars}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <>
+            <PassengersResources />
+            <WetherRecomendation />
+            <GenerateRandomRangeValue />
+            <HandleBillingAccount />
+          </>
+        );
+      }
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
