@@ -39,6 +39,7 @@ body {
 .label {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 
   span {
@@ -101,6 +102,7 @@ body {
 /*==============================================================================================================*/
 .range-fields {
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
 }
 
@@ -167,6 +169,7 @@ body {
 }
 
 .billing-account__row {
+  flex-wrap: wrap;
   font-size: 20px;
   display: flex;
   align-items: flex-end;
